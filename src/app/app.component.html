@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="row mt-1">
+    <div class="col-l" style="margin-right: 100px;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Utworów</th>
+            <th scope="col">Ulubiony</th>
+          </tr>
+        </thead>
+        <style>
+          .playlist-row {
+            border-bottom: 2px solid transparent;
+          }
+        </style>
+
+        <tbody>
+          <tr class="playlist-row" (click)="selected = playlist" [ngClass]="{'table-active':selected == playlist}"
+            [ngStyle]="color(playlist)">
+            <th scope="row">1</th>
+            <td style="width: 150px;">{{playlist.name}}</td>
+            <td>{{playlist.tracks}}</td>
+            <td>{{playlist.favourite}}</td>
+          </tr>
+          <tr (click)="selected = null" [class]="selected == null ? 'table-active' : ''">
+            <th scope="row">2</th>
+            <td style="width: 150px;">peja</td>
+            <td>{{playlist.tracks}}</td>
+            <td>false</td>
+          </tr>
+          <tr (click)="selected =  1" [ngClass]="{'table-active':selected == 1}">
+            <th scope="row">3</th>
+            <td style="width: 150px;">chuwdu</td>
+            <td>16</td>
+            <td>false</td>
+          </tr>
+
+        </tbody>
+
+
+      </table>
+    </div>
+
+    <div class="col-xs">
+      <h4>Wtiaj w Świecie</h4>
+
+      <div class="card" style="width: 18rem;">
+
+        <div *ngIf="selected == null" class="card-body">
+          <h5 class="card-title">Nowa playlista</h5>
+          <p>Tworzenie nowej  playlisty</p>
+          
+          <div class="form-group">
+            <label>Name :</label>
+            <input type="text" [(ngModel)]="edited.name" class="form-control">
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        <div *ngIf="selected != null" class="card-body">
+          
+          <div class="card-body">
+            <h5 class="card-title">Playlist</h5>
+            <p class="card-text">Description</p>
+          </div>
+            <div class="form-group">
+              <label>Name :</label>
+              <input type="text" [(ngModel)]='selected.name' class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label>Tracks :</label>
+              <input type="number" [ngModel]='selected.tracks' (ngModelChange)='playlist.tracks = $event'
+                class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label>Color :</label>
+              <input type="color" [value]='selected.color' (change)="playlist.color = $event.target.value"
+                class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label> <input type="checkbox" [checked]='selected.favourite'
+                  (change)="playlist.favourite = $event.target.checked">Favourite</label>
+
+            </div>
+            <div class="form-group">
+              <button class="btn btn-success float-right" (click)='save($event)'>Zapisz</button>
+            </div>
+
+          </div>
+        
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
